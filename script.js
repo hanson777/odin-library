@@ -65,11 +65,11 @@ function displayBooks(){
 
 document.querySelector(".myForm").addEventListener("submit", (event) => {
     event.preventDefault();
-    const formTitle = document.getElementById("title").value;
-    const formAuthor = document.getElementById("author").value;
-    const formPages = document.getElementById("pages").value;
-    const formRead = document.getElementById("read").value;
-    let arr = [formTitle, formAuthor, formPages, formRead];
+    const formTitle = document.getElementById("title")
+    const formAuthor = document.getElementById("author")
+    const formPages = document.getElementById("pages")
+    const formRead = document.getElementById("read")
+    let arr = [formTitle.value, formAuthor.value, formPages.value, formRead.value];
     for(const string of arr){
         if(string == ""){
             alert("Please fill out each field!");
@@ -79,11 +79,13 @@ document.querySelector(".myForm").addEventListener("submit", (event) => {
     }
     let hasRead = false;
     if(formRead === "Yes") hasRead = true;
-    addBookToLibrary(formTitle, formAuthor, formPages, hasRead, myLibrary.length);
+    addBookToLibrary(formTitle.value, formAuthor.value, formPages.value, hasRead.value, myLibrary.length);
     displayBooks();
+    formTitle.value = "";
+    formAuthor.value = "";
+    formPages.value = "";
+    formRead.value = "";
 })
-
-const statusButton = document.querySelector(".statusButton");
 
 document.addEventListener("click", (event) => {
     if(event.target.classList.contains("statusButton")){
