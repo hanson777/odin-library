@@ -1,82 +1,102 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) { 
+function Book(title, author, pages, read, index) { 
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.id = Math.random();
+    this.index = index;
 }
 
 Book.prototype.changeReadStatus = function() {
     this.read = !this.read;
 }
 
-function addBookToLibrary(title, author, pages, read) {
-    myLibrary.pop();
-    let book = new Book(title, author, pages, read)
+function addBookToLibrary(title, author, pages, read, index) {
+    let book = new Book(title, author, pages, read, index)
     myLibrary.push(book);
 }
 
 function displayBooks(){
+    document.querySelector(".display").innerHTML = "";
     for(let i = 0; i < myLibrary.length; i++) {
 
         const container = document.createElement("div");
         container.classList.add("bookContainer");
-        container.setAttribute("data-uuid", myLibrary[i].id);
         
         const title = document.createElement("p");
         const author = document.createElement("p");
         const pages = document.createElement("p");
         const hasBeenRead = document.createElement("p");
 
-        let changeReadStatus = document.createElement("button");
-        changeReadStatus.classList.add("statusButton");
+        let statusButton = document.createElement("button");
+        statusButton.classList.add("statusButton");
+        statusButton.setAttribute("data-index", i);
 
-        let remove = document.createElement("button");
-        remove.classList.add("statusButton");
+        let removeButton = document.createElement("button");
+        removeButton.classList.add("removeButton");
+        removeButton.setAttribute("data-index", i);
 
         title.textContent = `Title: ${myLibrary[i].title}`;
         author.textContent = `Author: ${myLibrary[i].author}`;
         pages.textContent = `${myLibrary[i].pages} pages`;
-        changeReadStatus.textContent = "Change read status";
-        remove.textContent = "Remove";
+        statusButton.textContent = "Change read status";
+        removeButton.textContent = "Remove";
+    
 
         if(myLibrary[i].read){
-            hasBeenRead.textContent = "You have read this book.";
+            hasBeenRead.textContent = "READ ✅";
         } else {
-            hasBeenRead.textContent = "You have not read this book.";
+            hasBeenRead.textContent = "NOT READ ❌";
         }
+            
 
         container.appendChild(title);   
         container.appendChild(author);
         container.appendChild(pages);
         container.appendChild(hasBeenRead);
-        container.appendChild(changeReadStatus);
-        container.appendChild(remove);
+        container.appendChild(statusButton);
+        container.appendChild(removeButton);
         document.querySelector(".display").appendChild(container);
-
-        console.log(myLibrary[i]);
+        
     }
 }
 
 
-
 document.querySelector(".myForm").addEventListener("submit", (event) => {
+    event.preventDefault();
     const formTitle = document.getElementById("title").value;
     const formAuthor = document.getElementById("author").value;
     const formPages = document.getElementById("pages").value;
     const formRead = document.getElementById("read").value;
-    let hasRead = false;
-    if(formRead === "Yes") {
-        hasRead = true;
-    } else {
-        hasRead = false;
+    let arr = [formTitle, formAuthor, formPages, formRead];
+    for(const string of arr){
+        if(string == ""){
+            alert("Please fill out each field!");
+            event.preventDefault();
+            return;
+        }
     }
-    addBookToLibrary(formTitle, formAuthor, formPages, hasRead);
+    let hasRead = false;
+    if(formRead === "Yes") hasRead = true;
+    addBookToLibrary(formTitle, formAuthor, formPages, hasRead, myLibrary.length);
     displayBooks();
-    event.preventDefault();
 })
+
+const statusButton = document.querySelector(".statusButton");
+
+document.addEventListener("click", (event) => {
+    if(event.target.classList.contains("statusButton")){
+        myLibrary[event.target.dataset.index].changeReadStatus();
+        displayBooks();
+    } else if(event.target.classList.contains("removeButton")){
+        console.log(`removing index ${event.target.dataset.index}`);
+        console.log(myLibrary[event.target.dataset.index]);
+        myLibrary.splice(event.target.dataset.index, 1);
+        displayBooks();
+    }
+})
+
 
 
 
