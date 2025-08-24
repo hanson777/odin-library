@@ -25,18 +25,16 @@ function displayBooks(){
         container.classList.add("bookContainer");
         container.setAttribute("data-uuid", myLibrary[i].id);
         
-        console.log(container.dataset.uuid);
-
         const title = document.createElement("p");
         const author = document.createElement("p");
         const pages = document.createElement("p");
         const hasBeenRead = document.createElement("p");
 
         let changeReadStatus = document.createElement("button");
-        changeReadStatus.classList.add("statusBtn");
+        changeReadStatus.classList.add("statusButton");
 
         let remove = document.createElement("button");
-        remove.classList.add("statusBtn");
+        remove.classList.add("statusButton");
 
         title.textContent = `Title: ${myLibrary[i].title}`;
         author.textContent = `Author: ${myLibrary[i].author}`;
@@ -57,14 +55,12 @@ function displayBooks(){
         container.appendChild(changeReadStatus);
         container.appendChild(remove);
         document.querySelector(".display").appendChild(container);
+
+        console.log(myLibrary[i]);
     }
 }
 
-const addBookBtn = document.querySelector(".addBook");
 
-addBookBtn.addEventListener("click", () => {
-    document.querySelector(".popup").classList.toggle("show");
-})
 
 document.querySelector(".myForm").addEventListener("submit", (event) => {
     const formTitle = document.getElementById("title").value;
@@ -81,7 +77,6 @@ document.querySelector(".myForm").addEventListener("submit", (event) => {
     displayBooks();
     event.preventDefault();
 })
-
 
 
 

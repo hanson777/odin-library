@@ -11,10 +11,13 @@
 }
 
 .display {
+    margin-left: 170px;
     display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
     gap: 10px;
-    width: 100%;
-    height: 100%;
+    margin-right: 0;
+    padding-right: 0;
 }
 
 button {
@@ -28,46 +31,48 @@ button {
 
 .bookContainer {
     border: 2px solid black;
-    width: 10rem;
+    width: auto;
     height: auto;
     text-align: center;
 }
 
-.popup {
-    visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    z-index: 9999;
-    background-color: white;
+.form-container {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: white; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    margin-left: 10px;
 }
 
 .myForm {
     display: flex;
     flex-direction: column;
-    width: 15%;
     height: 100%;
-
+    justify-content: center;
+    align-items: center;
 }
 
 .myForm > label {
-    margin-top: 20px;
+    margin-top: 75px;
 }
 
-.show {
-    visibility: visible;
+.myForm > :first-child {
+    margin-top: 0;
 }
 
 .submit {
-    width: 35%;
-    height: 35%;
     align-self: center;
     margin-top: 20px;
     font-size: 18px;
+    width: 75%;
 }
 
-.statusBtn {
+.statusButton {
     width: 100%;
     font-size: 16px;
 }
